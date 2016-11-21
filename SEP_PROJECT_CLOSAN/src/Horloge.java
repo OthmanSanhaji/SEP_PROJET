@@ -69,7 +69,7 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		panelHorloge.add(t3);
 		JLabel t4 = new JLabel("Afficheur 4 :");
 		panelHorloge.add(t4);
-		
+		//
 		JLabel a1 = new JLabel("0");
 		panelHorloge.add(a1);
 		JLabel a2 = new JLabel("0");
