@@ -1,4 +1,4 @@
-package Interface;
+package interfacePackage;
 
 public interface Subject {
 
