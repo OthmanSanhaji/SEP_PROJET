@@ -1,5 +1,7 @@
 package interfacePackage;
 
+
+
 public interface Capteur extends Subject{
 	
 	public void attach(Observer o);
@@ -9,5 +11,7 @@ public interface Capteur extends Subject{
 	public int getValue();
 	
 	public void tick();
+	
+	
 
 }
