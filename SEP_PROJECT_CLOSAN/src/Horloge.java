@@ -61,13 +61,13 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		Border borderHorloge = BorderFactory.createTitledBorder("Afficheurs");
 		panelHorloge.setBorder(borderHorloge);
 		
-		JLabel t1 = new JLabel("Afficheur 1");
+		JLabel t1 = new JLabel("Afficheur 1 :");
 		panelHorloge.add(t1);
-		JLabel t2 = new JLabel("Afficheur 2");
+		JLabel t2 = new JLabel("Afficheur 2 :");
 		panelHorloge.add(t2);
-		JLabel t3 = new JLabel("Afficheur 3");
+		JLabel t3 = new JLabel("Afficheur 3 :");
 		panelHorloge.add(t3);
-		JLabel t4 = new JLabel("Afficheur 4");
+		JLabel t4 = new JLabel("Afficheur 4 :");
 		panelHorloge.add(t4);
 		
 		JLabel a1 = new JLabel("0");
