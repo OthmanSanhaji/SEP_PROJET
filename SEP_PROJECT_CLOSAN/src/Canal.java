@@ -1,4 +1,6 @@
+import interfacePackage.Capteur;
 
-public class Canal {
+
+public class Canal implements Capteur {
 
 }
