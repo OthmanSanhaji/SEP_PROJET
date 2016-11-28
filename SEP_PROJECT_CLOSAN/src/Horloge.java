@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -62,24 +63,33 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		panelHorloge.setBorder(borderHorloge);
 		
 		JLabel t1 = new JLabel("Afficheur 1 :");
+		t1.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(t1);
 		JLabel t2 = new JLabel("Afficheur 2 :");
+		t2.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(t2);
 		JLabel t3 = new JLabel("Afficheur 3 :");
+		t3.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(t3);
 		JLabel t4 = new JLabel("Afficheur 4 :");
+		t4.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(t4);
-		//
+		
 		JLabel a1 = new JLabel("0");
+		a1.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(a1);
 		JLabel a2 = new JLabel("0");
+		a2.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(a2);
 		JLabel a3 = new JLabel("0");
+		a3.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(a3);
 		JLabel a4 = new JLabel("0");
+		a4.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(a4);
 
 		Container contentPane = this.getContentPane();
+		contentPane.setLayout(new BorderLayout(0, 300));
 		contentPane.add(panel, BorderLayout.CENTER);
 		contentPane.add(panelHorloge, BorderLayout.NORTH);
 		this.setSize(900, 500);
