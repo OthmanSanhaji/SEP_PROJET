@@ -1,11 +1,12 @@
 import java.util.List;
 
 import interfacePackage.AlgoDiffusion;
+import interfacePackage.Capteur;
 
 
 public class DiffusionAtomique implements AlgoDiffusion {
 	
-	CapteurImpl capteurImpl;
+	Capteur capteurImpl;
 	List <Canal> listCanal;
 	
 	@Override
@@ -17,7 +18,9 @@ public class DiffusionAtomique implements AlgoDiffusion {
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
-		listCanal.get(0).update(capteurImpl);
+		for(Canal l : listCanal){
+		l.update(capteurImpl);
+		}
 	}
 	
 	public void setCapteur(CapteurImpl capteurImplEntry){

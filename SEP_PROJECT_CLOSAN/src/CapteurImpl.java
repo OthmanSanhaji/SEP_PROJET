@@ -5,8 +5,8 @@ import interfacePackage.Observer;
 
 
 public class CapteurImpl implements Capteur {
-
 	private AlgoDiffusion algoDiff;
+	private int compteur = 0;
 	
 	@Override
 	public void attach(Observer o) {
@@ -21,14 +21,13 @@ public class CapteurImpl implements Capteur {
 	}
 
 	@Override
-	public int getValue() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getValue() {		
+		return compteur;
 	}
 
 	@Override
 	public void tick() {
-		// TODO Auto-generated method stub
+		compteur++;
 		algoDiff.execute();
 		
 	}

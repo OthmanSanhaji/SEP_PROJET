@@ -1,3 +1,6 @@
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import interfacePackage.Capteur;
 import interfacePackage.Observer;
 import interfacePackage.ObserverDeCapteur;
@@ -5,10 +8,20 @@ import interfacePackage.ObserverDeCapteur;
 
 public class Canal implements Capteur, ObserverDeCapteur {
 
+	private Afficheur a;
+	private CapteurImpl capteurImpl;
+	
+	public Canal (CapteurImpl capteurEntry, Afficheur afficheurImpl){
+		this.a = afficheurImpl;
+		this.capteurImpl = capteurEntry;
+	}
+	
 	@Override
 	public void update(Capteur subject) {
-		// TODO Auto-generated method stub
-		
+
+		Update update = new Update(a, this);
+		ScheduledThreadPoolExecutor schedule = new ScheduledThreadPoolExecutor(20);
+		schedule.schedule(update, 720, TimeUnit.MILLISECONDS);
 	}
 
 	@Override
@@ -26,7 +39,7 @@ public class Canal implements Capteur, ObserverDeCapteur {
 	@Override
 	public int getValue() {
 		// TODO Auto-generated method stub
-		return 0;
+		return capteurImpl.getValue();
 	}
 
 	@Override
