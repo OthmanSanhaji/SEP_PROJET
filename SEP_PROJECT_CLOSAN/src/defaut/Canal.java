@@ -1,3 +1,6 @@
+package defaut;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -20,8 +23,8 @@ public class Canal implements Capteur, ObserverDeCapteur {
 	public void update(Capteur subject) {
 
 		Update update = new Update(a, this);
-		ScheduledThreadPoolExecutor schedule = new ScheduledThreadPoolExecutor(20);
-		schedule.schedule(update, 720, TimeUnit.MILLISECONDS);
+		ScheduledThreadPoolExecutor schedule = new ScheduledThreadPoolExecutor(2);
+		schedule.schedule(update, (long)(Math.random() * 10000), TimeUnit.MILLISECONDS);
 	}
 
 	@Override
@@ -38,8 +41,16 @@ public class Canal implements Capteur, ObserverDeCapteur {
 
 	@Override
 	public int getValue() {
-		// TODO Auto-generated method stub
-		return capteurImpl.getValue();
+		GetValue getValue = new GetValue(capteurImpl);
+		ScheduledThreadPoolExecutor schedule = new ScheduledThreadPoolExecutor(2);
+		ScheduledFuture<Integer> future = schedule.schedule(getValue, (long)(Math.random() * 10000), TimeUnit.MILLISECONDS);
+		int ret = 0;
+		try {
+			ret = future.get();
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+		return ret;
 	}
 
 	@Override

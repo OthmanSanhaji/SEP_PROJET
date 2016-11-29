@@ -1,3 +1,6 @@
+package defaut;
+import interfacePackage.AlgoDiffusion;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Font;
@@ -14,12 +17,30 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
 public class Horloge extends JFrame implements ActionListener, ItemListener {
+	private AlgoDiffusion algo;
+	private CapteurImpl captImpl;
+	private JLabel valueCapteur;
+	
 	public static void main(String args[]) {
 		Horloge app = new Horloge();
 		app.init();
+		app.execute();
+	}
+	
+	public void execute() {			
+		while(true){
+			captImpl.tick();
+			valueCapteur.setText(String.valueOf(captImpl.getValue()));
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void init() {
@@ -58,7 +79,7 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		radio2.addItemListener(this);
 		radio3.addItemListener(this);
 		
-		JPanel panelHorloge = new JPanel(new GridLayout(2, 4));
+		JPanel panelHorloge = new JPanel(new GridLayout(2, 2));
 		Border borderHorloge = BorderFactory.createTitledBorder("Afficheurs");
 		panelHorloge.setBorder(borderHorloge);
 		
@@ -75,26 +96,59 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		t4.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(t4);
 		
-		JLabel a1 = new JLabel("0");
+		Afficheur a1 = new Afficheur("0");
 		a1.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(a1);
-		JLabel a2 = new JLabel("0");
+		Afficheur a2 = new Afficheur("0");
 		a2.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(a2);
-		JLabel a3 = new JLabel("0");
+		Afficheur a3 = new Afficheur("0");
 		a3.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(a3);
-		JLabel a4 = new JLabel("0");
+		Afficheur a4 = new Afficheur("0");
 		a4.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(a4);
 
 		Container contentPane = this.getContentPane();
-		contentPane.setLayout(new BorderLayout(0, 300));
-		contentPane.add(panel, BorderLayout.CENTER);
+		contentPane.add(panel, BorderLayout.SOUTH);
 		contentPane.add(panelHorloge, BorderLayout.NORTH);
+		
+		JPanel panelCapteur = new JPanel(new GridLayout(2, 2));
+		Border borderCapteur = BorderFactory.createTitledBorder("Capteur");
+		panelCapteur.setBorder(borderCapteur);
+		JLabel title = new JLabel("Valeur du capteur :");
+		title.setFont(new Font("Serif", Font.PLAIN, 66));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		panelCapteur.add(title);
+		
+		valueCapteur = new JLabel("0");
+		valueCapteur.setFont(new Font("Serif", Font.PLAIN, 66));
+		valueCapteur.setHorizontalAlignment(SwingConstants.CENTER);
+		panelCapteur.add(valueCapteur);
+		
+		contentPane.add(panelCapteur, BorderLayout.CENTER);
+		
 		this.setSize(900, 500);
 		this.setResizable(false);
 		this.setVisible(true);
+		
+		
+		
+		algo = new DiffusionAtomique();		
+		captImpl = new CapteurImpl();
+		
+		Canal c1 = new Canal(captImpl, a1);
+		Canal c2 = new Canal(captImpl, a2);
+		Canal c3 = new Canal(captImpl, a3);
+		Canal c4 = new Canal(captImpl, a4);
+		
+		algo.setCapteur(captImpl);
+		algo.addCanal(c1);
+		algo.addCanal(c2);
+		algo.addCanal(c3);
+		algo.addCanal(c4);
+		
+		captImpl.setAlgoDiff(algo);
 	}
 
 	@Override

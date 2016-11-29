@@ -1,3 +1,4 @@
+package defaut;
 import interfacePackage.AlgoDiffusion;
 import interfacePackage.Capteur;
 import interfacePackage.Observer;

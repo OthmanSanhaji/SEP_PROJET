@@ -1,6 +1,7 @@
+package defaut;
 import java.util.concurrent.Callable;
 
-public class Update implements Callable<Canal> {
+public class Update implements Callable<Object> {
 
 	Afficheur afficheur;
 	Canal canal;
@@ -10,7 +11,7 @@ public class Update implements Callable<Canal> {
 		this.canal = canEntry;
 	}
 	@Override
-	public Canal call() throws Exception {
+	public Object call() throws Exception {
 
 		afficheur.update(canal);
 		
