@@ -1,8 +1,9 @@
 package defaut;
-import javax.swing.JLabel;
-
+import interfacePackage.AlgoDiffusion;
 import interfacePackage.Capteur;
 import interfacePackage.ObserverDeCapteur;
+
+import javax.swing.JLabel;
 
 
 public class Afficheur extends JLabel implements ObserverDeCapteur {
@@ -13,9 +14,26 @@ public class Afficheur extends JLabel implements ObserverDeCapteur {
 	
 	@Override
 	public void update(Capteur subject) {
-		
-		int val = subject.getValue();
-		this.setText(String.valueOf(val));
-		
+		AlgoDiffusion algo = subject.getAlgo();
+		if(algo instanceof DiffusionAtomique) {
+			int val = subject.getValue();
+			this.setText(String.valueOf(val));
+			((DiffusionAtomique) algo).unlockBarrier();
+		}
+		else if (algo instanceof DiffusionSequentielle) {
+			int val;
+			if(((DiffusionSequentielle) algo).lecture()){
+				val = subject.getValue();
+				((DiffusionSequentielle) algo).setValue(val);
+			}
+			else{
+				val = ((DiffusionSequentielle) algo).getValue();
+			}
+			this.setText(String.valueOf(val));
+		}
+		else if (algo instanceof DiffusionEpoque) {
+			int val = subject.getValue();
+			this.setText(String.valueOf(val));
+		}
 	}
 }
