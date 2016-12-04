@@ -4,6 +4,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import interfacePackage.AlgoDiffusion;
 import interfacePackage.Capteur;
 import interfacePackage.Observer;
 import interfacePackage.ObserverDeCapteur;
@@ -24,7 +25,8 @@ public class Canal implements Capteur, ObserverDeCapteur {
 
 		Update update = new Update(a, this);
 		ScheduledThreadPoolExecutor schedule = new ScheduledThreadPoolExecutor(2);
-		schedule.schedule(update, (long)(Math.random() * 10000), TimeUnit.MILLISECONDS);
+		schedule.schedule(update, (long)(Math.random() * 12000), TimeUnit.MILLISECONDS);
+		//schedule.schedule(update, 5000, TimeUnit.MILLISECONDS);
 	}
 
 	@Override
@@ -43,7 +45,8 @@ public class Canal implements Capteur, ObserverDeCapteur {
 	public int getValue() {
 		GetValue getValue = new GetValue(capteurImpl);
 		ScheduledThreadPoolExecutor schedule = new ScheduledThreadPoolExecutor(2);
-		ScheduledFuture<Integer> future = schedule.schedule(getValue, (long)(Math.random() * 10000), TimeUnit.MILLISECONDS);
+		ScheduledFuture<Integer> future = schedule.schedule(getValue, (long)(Math.random() * 12000), TimeUnit.MILLISECONDS);
+		//ScheduledFuture<Integer> future = schedule.schedule(getValue, 5000, TimeUnit.MILLISECONDS);
 		int ret = 0;
 		try {
 			ret = future.get();
@@ -57,6 +60,11 @@ public class Canal implements Capteur, ObserverDeCapteur {
 	public void tick() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public AlgoDiffusion getAlgo() {
+		return capteurImpl.getAlgo();
 	}
 
 }

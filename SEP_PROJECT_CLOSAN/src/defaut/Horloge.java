@@ -1,4 +1,5 @@
 package defaut;
+
 import interfacePackage.AlgoDiffusion;
 
 import java.awt.BorderLayout;
@@ -24,17 +25,21 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 	private AlgoDiffusion algo;
 	private CapteurImpl captImpl;
 	private JLabel valueCapteur;
-	
+	private Canal c1;
+	private Canal c2;
+	private Canal c3;
+	private Canal c4;
+
 	public static void main(String args[]) {
 		Horloge app = new Horloge();
 		app.init();
 		app.execute();
 	}
-	
-	public void execute() {			
-		while(true){
+
+	public void execute() {
+		while (true) {
+			valueCapteur.setText(String.valueOf(captImpl.getValue() + 1));
 			captImpl.tick();
-			valueCapteur.setText(String.valueOf(captImpl.getValue()));
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -54,16 +59,16 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 
 		JRadioButton radio1 = new JRadioButton("Atomique");
 		radio1.setMnemonic(KeyEvent.VK_1);
-		radio1.setActionCommand("Choix_1");
+		radio1.setActionCommand("atomique");
 		radio1.setSelected(true);
 
 		JRadioButton radio2 = new JRadioButton("Séquentielle");
 		radio2.setMnemonic(KeyEvent.VK_2);
-		radio2.setActionCommand("Choix_2");
+		radio2.setActionCommand("sequentielle");
 
 		JRadioButton radio3 = new JRadioButton("Epoque");
 		radio3.setMnemonic(KeyEvent.VK_3);
-		radio3.setActionCommand("Choix_3");
+		radio3.setActionCommand("epoque");
 
 		group.add(radio1);
 		panel.add(radio1);
@@ -78,11 +83,11 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		radio1.addItemListener(this);
 		radio2.addItemListener(this);
 		radio3.addItemListener(this);
-		
+
 		JPanel panelHorloge = new JPanel(new GridLayout(2, 2));
 		Border borderHorloge = BorderFactory.createTitledBorder("Afficheurs");
 		panelHorloge.setBorder(borderHorloge);
-		
+
 		JLabel t1 = new JLabel("Afficheur 1 :");
 		t1.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(t1);
@@ -95,7 +100,7 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		JLabel t4 = new JLabel("Afficheur 4 :");
 		t4.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(t4);
-		
+
 		Afficheur a1 = new Afficheur("0");
 		a1.setFont(new Font("Serif", Font.PLAIN, 26));
 		panelHorloge.add(a1);
@@ -112,7 +117,7 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		Container contentPane = this.getContentPane();
 		contentPane.add(panel, BorderLayout.SOUTH);
 		contentPane.add(panelHorloge, BorderLayout.NORTH);
-		
+
 		JPanel panelCapteur = new JPanel(new GridLayout(2, 2));
 		Border borderCapteur = BorderFactory.createTitledBorder("Capteur");
 		panelCapteur.setBorder(borderCapteur);
@@ -120,49 +125,76 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		title.setFont(new Font("Serif", Font.PLAIN, 66));
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCapteur.add(title);
-		
+
 		valueCapteur = new JLabel("0");
 		valueCapteur.setFont(new Font("Serif", Font.PLAIN, 66));
 		valueCapteur.setHorizontalAlignment(SwingConstants.CENTER);
 		panelCapteur.add(valueCapteur);
-		
+
 		contentPane.add(panelCapteur, BorderLayout.CENTER);
-		
+
 		this.setSize(900, 500);
 		this.setResizable(false);
 		this.setVisible(true);
-		
-		
-		
-		algo = new DiffusionAtomique();		
+
+		algo = new DiffusionAtomique();
 		captImpl = new CapteurImpl();
-		
-		Canal c1 = new Canal(captImpl, a1);
-		Canal c2 = new Canal(captImpl, a2);
-		Canal c3 = new Canal(captImpl, a3);
-		Canal c4 = new Canal(captImpl, a4);
-		
+
+		c1 = new Canal(captImpl, a1);
+		c2 = new Canal(captImpl, a2);
+		c3 = new Canal(captImpl, a3);
+		c4 = new Canal(captImpl, a4);
+
 		algo.setCapteur(captImpl);
 		algo.addCanal(c1);
 		algo.addCanal(c2);
 		algo.addCanal(c3);
 		algo.addCanal(c4);
-		
+		algo.configure();
+
 		captImpl.setAlgoDiff(algo);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Clic sur le bouton : " + e.getActionCommand());
+		System.out.println("Choix de l'algorithme de diffusion "
+				+ e.getActionCommand());
 	}
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		System.out.print("Bouton "
-				+ ((JRadioButton) e.getItem()).getActionCommand());
-		if (e.getStateChange() == ItemEvent.DESELECTED)
-			System.out.println(" deselectionne");
-		if (e.getStateChange() == ItemEvent.SELECTED)
-			System.out.println(" selectionne");
+		System.out.println("Bouton "
+				+ ((JRadioButton) e.getItem()).getActionCommand()
+				+ " sélectionné");
+		if (e.getStateChange() == ItemEvent.DESELECTED) {
+			if (algo instanceof DiffusionAtomique){
+				((DiffusionAtomique) algo).reset();
+			}
+		}
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+			if (((JRadioButton) e.getItem()).getActionCommand().equals(
+					"atomique")) {
+				algo = new DiffusionAtomique();
+			}
+
+			if (((JRadioButton) e.getItem()).getActionCommand().equals(
+					"sequentielle")) {
+				algo = new DiffusionSequentielle();
+			}
+
+			if (((JRadioButton) e.getItem()).getActionCommand()
+					.equals("epoque")) {
+				algo = new DiffusionEpoque();
+			}
+			
+			algo.setCapteur(captImpl);
+			algo.addCanal(c1);
+			algo.addCanal(c2);
+			algo.addCanal(c3);
+			algo.addCanal(c4);
+			algo.configure();
+
+			captImpl.setAlgoDiff(algo);
+		}
 	}
 }

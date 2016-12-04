@@ -12,6 +12,6 @@ public interface Capteur extends Subject{
 	
 	public void tick();
 	
-	
+	public AlgoDiffusion getAlgo();
 
 }

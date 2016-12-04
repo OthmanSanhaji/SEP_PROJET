@@ -30,12 +30,15 @@ public class CapteurImpl implements Capteur {
 	public void tick() {
 		compteur++;
 		algoDiff.execute();
-		
 	}
 	
 	public void setAlgoDiff(AlgoDiffusion algoDiffEntry){
-		
 		algoDiff = algoDiffEntry;
+	}
+
+	@Override
+	public AlgoDiffusion getAlgo() {
+		return algoDiff;
 	}
 	
 	

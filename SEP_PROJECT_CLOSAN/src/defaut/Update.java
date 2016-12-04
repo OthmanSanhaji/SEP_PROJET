@@ -3,8 +3,8 @@ import java.util.concurrent.Callable;
 
 public class Update implements Callable<Object> {
 
-	Afficheur afficheur;
-	Canal canal;
+	private Afficheur afficheur;
+	private Canal canal;
 	
 	public Update (Afficheur affEntry, Canal canEntry){
 		this.afficheur = affEntry;
