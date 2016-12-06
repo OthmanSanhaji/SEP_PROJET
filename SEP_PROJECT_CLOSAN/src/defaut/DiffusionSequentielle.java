@@ -43,7 +43,6 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 	public void release(){
 		s.release();
 	}
-	
 	public synchronized boolean lecture() {
 		if (lecture) {
 			lecture = false;
