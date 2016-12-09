@@ -29,6 +29,7 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 	private Canal c2;
 	private Canal c3;
 	private Canal c4;
+	private boolean algoChange;
 
 	public static void main(String args[]) {
 		Horloge app = new Horloge();
@@ -38,6 +39,15 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 
 	public void execute() {
 		while (true) {
+			if(algoChange){
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				this.init(algo);
+				algoChange = false;
+			}
 			valueCapteur.setText(String.valueOf(captImpl.getValue() + 1));
 			captImpl.tick();
 			try {
@@ -169,6 +179,8 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 			if (algo instanceof DiffusionAtomique){
 				((DiffusionAtomique) algo).reset();
 			}
+			
+			algoChange = true;
 		}
 		if (e.getStateChange() == ItemEvent.SELECTED) {
 			if (((JRadioButton) e.getItem()).getActionCommand().equals(
@@ -185,8 +197,6 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 					.equals("epoque")) {
 				algo = new DiffusionEpoque();
 			}
-			
-			this.init(algo);
 		}
 	}
 }
