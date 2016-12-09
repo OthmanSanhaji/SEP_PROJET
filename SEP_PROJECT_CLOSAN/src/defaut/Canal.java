@@ -25,7 +25,7 @@ public class Canal implements Capteur, ObserverDeCapteur {
 
 		Update update = new Update(a, this);
 		ScheduledThreadPoolExecutor schedule = new ScheduledThreadPoolExecutor(2);
-		schedule.schedule(update, (long)(Math.random() * 12000), TimeUnit.MILLISECONDS);
+		schedule.schedule(update, (long)(Math.random() * 4000) + 500, TimeUnit.MILLISECONDS);
 		//schedule.schedule(update, 5000, TimeUnit.MILLISECONDS);
 	}
 
@@ -45,7 +45,7 @@ public class Canal implements Capteur, ObserverDeCapteur {
 	public int getValue() {
 		GetValue getValue = new GetValue(capteurImpl);
 		ScheduledThreadPoolExecutor schedule = new ScheduledThreadPoolExecutor(2);
-		ScheduledFuture<Integer> future = schedule.schedule(getValue, (long)(Math.random() * 12000), TimeUnit.MILLISECONDS);
+		ScheduledFuture<Integer> future = schedule.schedule(getValue, (long)(Math.random() * 4000) + 500, TimeUnit.MILLISECONDS);
 		//ScheduledFuture<Integer> future = schedule.schedule(getValue, 5000, TimeUnit.MILLISECONDS);
 		int ret = 0;
 		try {
