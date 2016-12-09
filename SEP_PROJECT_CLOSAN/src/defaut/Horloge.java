@@ -32,7 +32,7 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 
 	public static void main(String args[]) {
 		Horloge app = new Horloge();
-		app.init();
+		app.init(new DiffusionAtomique());
 		app.execute();
 	}
 
@@ -48,7 +48,7 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		}
 	}
 
-	public void init() {
+	public void init(AlgoDiffusion algo) {
 		this.setTitle("Test radio boutons");
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -137,7 +137,6 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		this.setResizable(false);
 		this.setVisible(true);
 
-		algo = new DiffusionAtomique();
 		captImpl = new CapteurImpl();
 
 		c1 = new Canal(captImpl, a1);
@@ -187,14 +186,7 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 				algo = new DiffusionEpoque();
 			}
 			
-			algo.setCapteur(captImpl);
-			algo.addCanal(c1);
-			algo.addCanal(c2);
-			algo.addCanal(c3);
-			algo.addCanal(c4);
-			algo.configure();
-
-			captImpl.setAlgoDiff(algo);
+			this.init(algo);
 		}
 	}
 }
