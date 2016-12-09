@@ -49,7 +49,7 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 	}
 
 	public void init(AlgoDiffusion algo) {
-		this.setTitle("Test radio boutons");
+		this.setTitle("Projet SEP : CLOAREC - SANHAJI");
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel panel = new JPanel(new GridLayout(0, 1));
