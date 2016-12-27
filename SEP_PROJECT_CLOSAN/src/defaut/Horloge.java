@@ -142,6 +142,16 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		panelCapteur.add(valueCapteur);
 
 		contentPane.add(panelCapteur, BorderLayout.CENTER);
+		
+		if (algo instanceof DiffusionAtomique){
+			radio1.setSelected(true);
+		}
+		else if (algo instanceof DiffusionSequentielle){
+			radio2.setSelected(true);
+		}
+		else if (algo instanceof DiffusionEpoque){
+			radio3.setSelected(true);
+		}
 
 		this.setSize(900, 500);
 		this.setResizable(false);
