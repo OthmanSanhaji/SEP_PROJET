@@ -21,6 +21,13 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 
+/**
+ * 
+ * @author Othmane
+ * @author Bastien
+ *
+ * Classe principale de l'application
+ */
 public class Horloge extends JFrame implements ActionListener, ItemListener {
 	private AlgoDiffusion algo;
 	private CapteurImpl captImpl;
@@ -31,12 +38,19 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 	private Canal c4;
 	private boolean algoChange;
 
+	/**
+	 * Lance l'application
+	 * @param args
+	 */
 	public static void main(String args[]) {
 		Horloge app = new Horloge();
 		app.init(new DiffusionAtomique());
 		app.execute();
 	}
 
+	/**
+	 * Incrémentation de l'horloge toutes les secondes
+	 */
 	public void execute() {
 		while (true) {
 			if(algoChange){
@@ -58,6 +72,10 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		}
 	}
 
+	/**
+	 * Initialisation de l'interface
+	 * @param algo : L'algo de diffusion à utiliser
+	 */
 	public void init(AlgoDiffusion algo) {
 		this.setTitle("Projet SEP : CLOAREC - SANHAJI");
 
@@ -174,12 +192,18 @@ public class Horloge extends JFrame implements ActionListener, ItemListener {
 		captImpl.setAlgoDiff(algo);
 	}
 
+	/**
+	 * Appelé lors d'un changement d'algo de diffusion
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("Choix de l'algorithme de diffusion "
 				+ e.getActionCommand());
 	}
 
+	/**
+	 * Appelé lors d'un changement d'algo de diffusion
+	 */
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		System.out.println("Bouton "

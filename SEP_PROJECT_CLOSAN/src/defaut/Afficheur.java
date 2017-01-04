@@ -5,13 +5,27 @@ import interfacePackage.ObserverDeCapteur;
 
 import javax.swing.JLabel;
 
-
+/**
+ * 
+ * @author Othmane
+ * @author Bastien
+ *
+ * Implémentation de l'afficheur
+ */
 public class Afficheur extends JLabel implements ObserverDeCapteur {
 	
+	/**
+	 * Constructeur de l'afficheur
+	 * @param value : La valeur par défaut de l'afficheur
+	 */
 	public Afficheur(String value){
 		super(value);
 	}
 	
+	/**
+	 * Mise à jour de l'afficheur en fonction du Capteur et de l'algorithme de diffusion
+	 * @param subject : Capteur Le Capteur
+	 */
 	@Override
 	public void update(Capteur subject) {
 		AlgoDiffusion algo = subject.getAlgo();

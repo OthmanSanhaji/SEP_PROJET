@@ -9,17 +9,32 @@ import interfacePackage.Capteur;
 import interfacePackage.Observer;
 import interfacePackage.ObserverDeCapteur;
 
-
+/**
+ * 
+ * @author Othmane
+ * @author Bastien
+ *
+ * Implémentation du Canal
+ */
 public class Canal implements Capteur, ObserverDeCapteur {
 
 	private Afficheur a;
 	private CapteurImpl capteurImpl;
 	
+	/**
+	 * Constructeur du canal
+	 * @param capteurEntry : CapteurImpl Le capteur
+	 * @param afficheurImpl : Afficheur L'afficheur à mettre à jour
+	 */
 	public Canal (CapteurImpl capteurEntry, Afficheur afficheurImpl){
 		this.a = afficheurImpl;
 		this.capteurImpl = capteurEntry;
 	}
 	
+	/**
+	 * Mise à jour du Canal en fonction du Capteur
+	 * @param subject : Capteur Le Capteur
+	 */
 	@Override
 	public void update(Capteur subject) {
 
@@ -41,6 +56,10 @@ public class Canal implements Capteur, ObserverDeCapteur {
 		
 	}
 
+	/**
+	 * Retourne la valeur du capteur
+	 * @return La valeur du capteur
+	 */
 	@Override
 	public int getValue() {
 		GetValue getValue = new GetValue(capteurImpl);
@@ -62,6 +81,10 @@ public class Canal implements Capteur, ObserverDeCapteur {
 		
 	}
 
+	/**
+	 * Retourne l'algo de diffusion utilisé
+	 * @return L'algo de diffusion
+	 */
 	@Override
 	public AlgoDiffusion getAlgo() {
 		return capteurImpl.getAlgo();
